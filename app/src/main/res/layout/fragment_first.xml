@@ -23,6 +23,25 @@
         android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_first" />
+
+    <Button
+        android:id="@+id/btnAuthCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="检查是否有权限"
+        app:layout_constraintTop_toBottomOf="@id/button_first"
+        app:layout_constraintStart_toStartOf="@id/button_first"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/btnAuthRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="申请权限"
+        app:layout_constraintTop_toBottomOf="@id/btnAuthCheck"
+        app:layout_constraintStart_toStartOf="@id/button_first"
+        android:layout_marginTop="20dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
