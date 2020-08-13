@@ -31,7 +31,7 @@ class FirstFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.btnAuthRequest).setOnClickListener {
-            WalletManager.requestAuth()
+            WalletManager.requestAuth(context)
         }
 
         view.findViewById<Button>(R.id.btnAuthCheck).setOnClickListener {
