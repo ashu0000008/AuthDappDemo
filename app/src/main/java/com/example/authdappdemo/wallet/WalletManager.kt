@@ -51,8 +51,8 @@ object WalletManager {
 //            nonce, WalletConfigure.mGasPrice, WalletConfigure.mGasLimit,
 //            WalletConfigure.mContractAddress, encodedFunction)
 
-        val rawTransaction = RawTransaction.createContractTransaction(nonce, WalletConfigure.mGasPrice,
-            WalletConfigure.mGasLimit, BigInteger.ZERO, encodedFunction)
+        val rawTransaction = RawTransaction.createTransaction(nonce, WalletConfigure.mGasPrice,
+            WalletConfigure.mGasLimit, WalletConfigure.mContractAddress, encodedFunction)
 
         val signedString = TransactionEncoder.signMessage(rawTransaction, mWallet)
         val transactionResponse = web3j?.ethSendRawTransaction(Numeric.toHexString(signedString))?.sendAsync()?.get()
