@@ -6,12 +6,16 @@ import android.widget.Toast
 import org.web3j.abi.FunctionEncoder
 import org.web3j.abi.FunctionReturnDecoder
 import org.web3j.crypto.Credentials
+import org.web3j.crypto.RawTransaction
+import org.web3j.crypto.TransactionEncoder
 import org.web3j.crypto.WalletUtils
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.Transaction
 import org.web3j.protocol.http.HttpService
 
 import org.web3j.protocol.admin.Admin
+import org.web3j.utils.Numeric
+import java.math.BigInteger
 
 
 object WalletManager {
@@ -43,10 +47,15 @@ object WalletManager {
         val function = FunctionEncoder.makeFunction("auth",
             arrayListOf("uint8", "uint256"), arrayListOf(0, 1234) as List<Any>?, emptyList())
         val encodedFunction = FunctionEncoder.encode(function)
-        val transaction = Transaction.createFunctionCallTransaction(mWallet?.address.toString(),
-            nonce, WalletConfigure.mGasPrice, WalletConfigure.mGasLimit,
-            WalletConfigure.mContractAddress, encodedFunction)
-        val transactionResponse = web3j?.ethSendTransaction(transaction)?.sendAsync()?.get()
+//        val transaction = Transaction.createFunctionCallTransaction(mWallet?.address.toString(),
+//            nonce, WalletConfigure.mGasPrice, WalletConfigure.mGasLimit,
+//            WalletConfigure.mContractAddress, encodedFunction)
+
+        val rawTransaction = RawTransaction.createContractTransaction(nonce, WalletConfigure.mGasPrice,
+            WalletConfigure.mGasLimit, BigInteger.ZERO, encodedFunction)
+
+        val signedString = TransactionEncoder.signMessage(rawTransaction, mWallet)
+        val transactionResponse = web3j?.ethSendRawTransaction(Numeric.toHexString(signedString))?.sendAsync()?.get()
         val hash = transactionResponse?.transactionHash
 
         if (!TextUtils.isEmpty(hash)){
