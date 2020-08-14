@@ -38,6 +38,10 @@ class FirstFragment : Fragment() {
             WalletManager.showAddress(context)
         }
 
+        view.findViewById<Button>(R.id.btnTransfer).setOnClickListener {
+            WalletManager.doTransfer(context)
+        }
+
         view.findViewById<Button>(R.id.btnAuthRequest).setOnClickListener {
             WalletManager.requestAuth(context)
         }
