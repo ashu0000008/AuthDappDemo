@@ -5,18 +5,14 @@ import android.text.TextUtils
 import android.widget.Toast
 import org.web3j.abi.FunctionEncoder
 import org.web3j.abi.FunctionReturnDecoder
-import org.web3j.crypto.Credentials
-import org.web3j.crypto.RawTransaction
-import org.web3j.crypto.TransactionEncoder
-import org.web3j.crypto.WalletUtils
+import org.web3j.crypto.*
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.Transaction
 import org.web3j.protocol.http.HttpService
 
 import org.web3j.protocol.admin.Admin
 import org.web3j.utils.Numeric
-import java.math.BigInteger
-
+import java.math.BigDecimal
 
 object WalletManager {
 
@@ -24,7 +20,8 @@ object WalletManager {
     private var web3j:Admin? = Admin.build(HttpService(WalletConfigure.mEthNode))
 
     fun initWallet(){
-        mWallet = WalletUtils.loadBip39Credentials("Test123", WalletConfigure.mMnemonic)
+//        mWallet = Bip44WalletUtils.loadBip44Credentials("Test123", WalletConfigure.mMnemonic, true)
+        mWallet = Credentials.create(WalletConfigure.mPrvKey)
     }
 
     fun checkAuth():Boolean{
@@ -63,7 +60,19 @@ object WalletManager {
                 Toast.makeText(context, hash, Toast.LENGTH_LONG).show()
             }
         }else{
-            Toast.makeText(context, "交易失败", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "交易失败:"+transactionResponse?.error?.message, Toast.LENGTH_LONG).show()
         }
+    }
+
+    fun showBalance(context:Context?){
+        val balance = web3j?.ethGetBalance(mWallet?.address.toString(), DefaultBlockParameterName.LATEST)?.sendAsync()?.get()
+        val bbbTmp = BigDecimal(balance?.balance.toString())
+        val balanceEth = bbbTmp.divide(BigDecimal("1000000000000000000"), 8, BigDecimal.ROUND_FLOOR)
+        Toast.makeText(context, balanceEth.toString(), Toast.LENGTH_LONG).show()
+    }
+
+    fun showAddress(context: Context?){
+        val address = mWallet?.address.toString()
+        Toast.makeText(context, address, Toast.LENGTH_LONG).show()
     }
 }

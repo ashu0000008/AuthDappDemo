@@ -30,6 +30,14 @@ class FirstFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
+        view.findViewById<Button>(R.id.btnBalance).setOnClickListener {
+            WalletManager.showBalance(context)
+        }
+
+        view.findViewById<Button>(R.id.btnAddress).setOnClickListener {
+            WalletManager.showAddress(context)
+        }
+
         view.findViewById<Button>(R.id.btnAuthRequest).setOnClickListener {
             WalletManager.requestAuth(context)
         }
