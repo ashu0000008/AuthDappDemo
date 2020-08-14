@@ -43,8 +43,8 @@ object WalletManager {
         val nonce = web3j?.ethGetTransactionCount(
             mWallet?.address.toString(), DefaultBlockParameterName.LATEST)?.sendAsync()?.get()?.transactionCount
 
-        val function = FunctionEncoder.makeFunction("auth",
-            arrayListOf("uint8", "uint256"), arrayListOf(0, WalletConfigure.mDeviceId) as List<Any>?, emptyList())
+        val function = FunctionEncoder.makeFunction("auth", arrayListOf("uint8", "uint256"),
+            arrayListOf(WalletConfigure.mContractIndex, WalletConfigure.mDeviceId) as List<Any>?, emptyList())
         val encodedFunction = FunctionEncoder.encode(function)
 //        val transaction = Transaction.createFunctionCallTransaction(mWallet?.address.toString(),
 //            nonce, WalletConfigure.mGasPrice, WalletConfigure.mGasLimit,
