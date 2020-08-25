@@ -221,10 +221,16 @@ object WalletManager {
             }
         }
 
-        val transactionReceipt = web3j?.ethGetTransactionReceipt(hash)?.sendAsync()?.get()?.transactionReceipt
-        if (transactionReceipt!!.isPresent){
 
-        }
+        Thread(Runnable {
+            while (true){
+                Thread.sleep(2000)
+                val transactionReceipt = web3j?.ethGetTransactionReceipt(hash)?.sendAsync()?.get()?.transactionReceipt
+                if (transactionReceipt!!.isPresent){
+                    break
+                }
+            }
+        }).run();
     }
 
     fun checkAuth(context: Context?, contractId: String, deviceId: String){
