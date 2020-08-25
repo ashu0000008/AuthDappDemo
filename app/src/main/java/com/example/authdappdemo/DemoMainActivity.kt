@@ -41,6 +41,7 @@ class DemoMainActivity  : AppCompatActivity(){
             try{
                 WalletManager.reqAuth(this, contractId, deviceId)
             }catch (e:Exception){
+                e.printStackTrace()
             }
         }
 
