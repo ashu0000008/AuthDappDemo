@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="60dp"
+        android:id="@+id/tv_contract_id_tip"
+        android:text="合同ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_alignStart="@id/tv_contract_id_tip"
+        android:layout_below="@id/tv_contract_id_tip"
+        android:id="@+id/tv_contract_amount_tip"
+        android:layout_marginTop="20dp"
+        android:text="授权个数"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_alignStart="@id/tv_contract_id_tip"
+        android:layout_below="@id/tv_contract_amount_tip"
+        android:id="@+id/tv_contract_expire_tip"
+        android:text="过期时间"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:layout_alignBottom="@id/tv_contract_id_tip"
+        android:layout_toEndOf="@id/tv_contract_id_tip"
+        android:layout_marginStart="70dp"
+        android:id="@+id/et_contract_id"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:layout_alignBottom="@id/tv_contract_amount_tip"
+        android:layout_alignStart="@id/et_contract_id"
+        android:id="@+id/et_contract_amount"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:layout_alignBottom="@id/tv_contract_expire_tip"
+        android:layout_alignStart="@id/et_contract_id"
+        android:id="@+id/et_contract_expire"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_below="@id/et_contract_expire"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btn_add"
+        android:text="将合同上链"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

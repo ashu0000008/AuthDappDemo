@@ -21,7 +21,7 @@ object WalletManager {
     private var web3j:Admin? = Admin.build(HttpService(WalletConfigure.mEthNode))
 
     fun initWallet(){
-//        mWallet = Bip44WalletUtils.loadBip44Credentials("Test123", WalletConfigure.mMnemonic, true)
+        mWallet = Bip44WalletUtils.loadBip44Credentials("Test123", WalletConfigure.mMnemonic, true)
         mWallet = Credentials.create(WalletConfigure.mPrvKey)
     }
 
@@ -38,7 +38,6 @@ object WalletManager {
     }
 
     fun requestAuth(context:Context?){
-
         //获取该账户交易个数
         val nonce = web3j?.ethGetTransactionCount(
             mWallet?.address.toString(), DefaultBlockParameterName.LATEST)?.sendAsync()?.get()?.transactionCount
@@ -46,16 +45,8 @@ object WalletManager {
         val function = FunctionEncoder.makeFunction("auth", arrayListOf("uint8", "uint256"),
             arrayListOf(WalletConfigure.mContractIndex, WalletConfigure.mDeviceId) as List<Any>?, emptyList())
         val encodedFunction = FunctionEncoder.encode(function)
-//        val transaction = Transaction.createFunctionCallTransaction(mWallet?.address.toString(),
-//            nonce, WalletConfigure.mGasPrice, WalletConfigure.mGasLimit,
-//            WalletConfigure.mContractAddress, encodedFunction)
-
-        //fee 0.1eth
-//        val value = WalletConst.mOneEth.divide(BigInteger("10"))
-
         val rawTransaction = RawTransaction.createTransaction(nonce, WalletConfigure.mGasPrice,
             WalletConfigure.mGasLimit, WalletConfigure.mContractAddress, BigInteger.ZERO, encodedFunction)
-
         val signedString = TransactionEncoder.signMessage(rawTransaction, mWallet)
         val transactionResponse = web3j?.ethSendRawTransaction(Numeric.toHexString(signedString))?.sendAsync()?.get()
         val hash = transactionResponse?.transactionHash
@@ -104,4 +95,81 @@ object WalletManager {
             Toast.makeText(context, "转账失败:"+transactionResponse?.error?.message, Toast.LENGTH_LONG).show()
         }
     }
+
+
+
+
+    //新版demo
+    fun addContract(context: Context?, id:String, amount:Long, expire:Long){
+        if (0L == amount || 0L == expire){
+            return
+        }
+
+        val nonce = web3j?.ethGetTransactionCount(
+            mWallet?.address.toString(), DefaultBlockParameterName.LATEST)?.sendAsync()?.get()?.transactionCount
+
+        val function = FunctionEncoder.makeFunction("addContract", arrayListOf("string", "uint256", "uint256"),
+            arrayListOf(id, amount, expire) as List<Any>?, arrayListOf("bool"))
+        val encodedFunction = FunctionEncoder.encode(function)
+        val rawTransaction = RawTransaction.createTransaction(nonce, WalletConfigure.mGasPrice,
+            WalletConfigure.mGasLimit, WalletConfigure.mContractAddressNew, BigInteger.ZERO, encodedFunction)
+        val signedString = TransactionEncoder.signMessage(rawTransaction, mWallet)
+        val transactionResponse = web3j?.ethSendRawTransaction(Numeric.toHexString(signedString))?.sendAsync()?.get()
+        val hash = transactionResponse?.transactionHash
+
+        if (null != context){
+            if (!TextUtils.isEmpty(hash)){
+                Toast.makeText(context, "交易已发送到链上:$hash", Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(context, "交易失败:"+transactionResponse?.error?.message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    fun reqAuth(context: Context?, contractId:String, deviceId:String){
+        val nonce = web3j?.ethGetTransactionCount(
+            mWallet?.address.toString(), DefaultBlockParameterName.LATEST)?.sendAsync()?.get()?.transactionCount
+
+        val function = FunctionEncoder.makeFunction("reqAuth", arrayListOf("string", "string"),
+            arrayListOf(contractId, deviceId) as List<Any>?, arrayListOf("bool", "string"))
+        val encodedFunction = FunctionEncoder.encode(function)
+        val rawTransaction = RawTransaction.createTransaction(nonce, WalletConfigure.mGasPrice,
+            WalletConfigure.mGasLimit, WalletConfigure.mContractAddressNew, BigInteger.ZERO, encodedFunction)
+        val signedString = TransactionEncoder.signMessage(rawTransaction, mWallet)
+        val transactionResponse = web3j?.ethSendRawTransaction(Numeric.toHexString(signedString))?.sendAsync()?.get()
+        val hash = transactionResponse?.transactionHash
+
+        if (null != context){
+            if (!TextUtils.isEmpty(hash)){
+                Toast.makeText(context, "交易已发送到链上:$hash", Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(context, "交易失败:"+transactionResponse?.error?.message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    fun checkAuth(context: Context?, contractId:String, deviceId:String){
+        val nonce = web3j?.ethGetTransactionCount(
+            mWallet?.address.toString(), DefaultBlockParameterName.LATEST)?.sendAsync()?.get()?.transactionCount
+
+        val function = FunctionEncoder.makeFunction("isAuthed", arrayListOf("string", "string"),
+            arrayListOf(contractId, deviceId) as List<Any>?, arrayListOf("bool", "string"))
+        val encodedFunction = FunctionEncoder.encode(function)
+
+        val transaction = Transaction.createEthCallTransaction(
+            mWallet?.address.toString(), WalletConfigure.mContractAddress, encodedFunction)
+        val response = web3j?.ethCall(transaction, DefaultBlockParameterName.LATEST)?.sendAsync()?.get()
+        val returnValue = FunctionReturnDecoder.decode(response?.value, function.outputParameters)
+        val result = returnValue[0].value as Boolean
+        val reason = returnValue[1].value as String
+
+        if (null != context){
+            if (result){
+                Toast.makeText(context, "已经得到授权", Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(context, "未授权:$reason", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
 }

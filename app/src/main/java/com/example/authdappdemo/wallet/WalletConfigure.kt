@@ -7,7 +7,8 @@ class WalletConfigure {
         const val mMnemonic = "liar rescue hair method cradle pizza unusual whale twin cute into daring"
         val mGasPrice = BigInteger("30000000000")
         val mGasLimit = BigInteger("3000000")
-        const val mContractAddress = "0xfFD23A0e058F72932902AcE0d594Ddb4A393bc93"
+        const val mContractAddress = "0x7870AB6bF511307ca7058A14C61666c7d64b38Bc"
+        const val mContractAddressNew = "0x7870AB6bF511307ca7058A14C61666c7d64b38Bc"
 
         const val mEthNode = "https://rinkeby.infura.io/v3/bebe1ba6263e44279370df5b205e8b9c"
 
@@ -16,8 +17,10 @@ class WalletConfigure {
 
 
         //本机唯一标识，可以是钱包地址
-        const val mDeviceId = 11122
+        const val mDeviceId = 11111
+        const val mContractId = "contract_company_001"
         const val mContractIndex = 2
+
     }
 
 }
