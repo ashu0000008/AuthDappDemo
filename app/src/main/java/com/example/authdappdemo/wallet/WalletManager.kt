@@ -5,6 +5,7 @@ import android.content.Context
 import android.text.TextUtils
 import android.widget.Toast
 import com.lzh.easythread.EasyThread
+import me.leefeng.promptlibrary.PromptDialog
 import org.web3j.abi.FunctionEncoder
 import org.web3j.abi.FunctionReturnDecoder
 import org.web3j.crypto.Bip44WalletUtils
@@ -143,6 +144,9 @@ object WalletManager {
             return
         }
 
+        val promptDialog =  PromptDialog(context)
+        promptDialog.showLoading("")
+
         easyThread.execute(Runnable {
             val nonce = web3j?.ethGetTransactionCount(
                 mWallet?.address.toString(), DefaultBlockParameterName.LATEST
@@ -171,6 +175,7 @@ object WalletManager {
             val hash = transactionResponse?.transactionHash
 
             context?.runOnUiThread {
+                promptDialog.showSuccess("")
                 if (!TextUtils.isEmpty(hash)) {
                     Toast.makeText(context, "交易已发送到链上:$hash", Toast.LENGTH_LONG).show()
                 } else {
@@ -213,9 +218,15 @@ object WalletManager {
 
     fun reqAuth(context: Activity?, contractId: String, deviceId: String) {
 
+        val promptDialog =  PromptDialog(context)
+        promptDialog.showLoading("")
+
         easyThread.execute(Runnable {
             val canAuth = canAuth(context, contractId)
             if (!canAuth) {
+                context?.runOnUiThread {
+                    promptDialog.showSuccess("")
+                }
                 return@Runnable
             }
 
@@ -242,6 +253,7 @@ object WalletManager {
             val hash = transactionResponse?.transactionHash
 
             context?.runOnUiThread {
+                promptDialog.showSuccess("")
                 if (!TextUtils.isEmpty(hash)) {
                     Toast.makeText(context, "交易已发送到链上:${hash}", Toast.LENGTH_LONG).show()
                 } else {
@@ -269,6 +281,9 @@ object WalletManager {
 
     fun checkAuth(context: Activity?, contractId: String, deviceId: String) {
 
+        val promptDialog =  PromptDialog(context)
+        promptDialog.showLoading("")
+
         easyThread.execute(Runnable {
             val function = FunctionEncoder.makeFunction(
                 "isAuthed", arrayListOf("string", "string"),
@@ -287,6 +302,7 @@ object WalletManager {
             val reason = returnValue[1].value as String
 
             context?.runOnUiThread {
+                promptDialog.showSuccess("")
                 if (result) {
                     Toast.makeText(context, "已经得到授权", Toast.LENGTH_LONG).show()
                 } else {
