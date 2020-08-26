@@ -32,7 +32,7 @@ class ContractAddActivity : AppCompatActivity(){
         val etContractExpire = findViewById<EditText>(R.id.et_contract_expire)
         etContractId.setText(WalletConfigure.mContractId)
         etContractAmount.setText("2")
-        etContractExpire.setText("100")
+        etContractExpire.setText("600")
 
         findViewById<Button>(R.id.btn_add).setOnClickListener {
             doAddContractToBlockChain()

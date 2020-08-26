@@ -187,15 +187,45 @@ object WalletManager {
         }
     }
 
+    private fun canAuth(context: Context?, contractId: String) :Boolean{
+        val function = FunctionEncoder.makeFunction(
+            "canAuth", arrayListOf("string"),
+            arrayListOf(contractId) as List<Any>?, arrayListOf("bool", "string")
+        )
+        val encodedFunction = FunctionEncoder.encode(function)
+
+        val transaction = Transaction.createEthCallTransaction(
+            mWallet?.address.toString(), WalletConfigure.mContractAddressNew, encodedFunction
+        )
+        val response = web3j?.ethCall(transaction, DefaultBlockParameterName.LATEST)?.sendAsync()?.get()
+        val returnValue = FunctionReturnDecoder.decode(response?.value, function.outputParameters)
+        val result = returnValue[0].value as Boolean
+        val reason = returnValue[1].value as String
+
+        if (null != context){
+            if (result){
+//                Toast.makeText(context, "", Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(context, "授权失败:$reason", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        return result
+    }
+
     fun reqAuth(context: Context?, contractId: String, deviceId: String){
+        val canAuth = canAuth(context, contractId)
+        if (!canAuth){
+            return
+        }
+
         val nonce = web3j?.ethGetTransactionCount(
             mWallet?.address.toString(), DefaultBlockParameterName.LATEST
         )?.sendAsync()?.get()?.transactionCount
 
         val function = FunctionEncoder.makeFunction(
             "reqAuth", arrayListOf("string", "string"),
-            arrayListOf(contractId, deviceId) as List<Any>?, arrayListOf("bool", "string")
-        )
+            arrayListOf(contractId, deviceId) as List<Any>?, emptyList())
         val encodedFunction = FunctionEncoder.encode(function)
         val rawTransaction = RawTransaction.createTransaction(
             nonce,
@@ -222,15 +252,15 @@ object WalletManager {
         }
 
 
-        Thread(Runnable {
-            while (true){
-                Thread.sleep(2000)
-                val transactionReceipt = web3j?.ethGetTransactionReceipt(hash)?.sendAsync()?.get()?.transactionReceipt
-                if (transactionReceipt!!.isPresent){
-                    break
-                }
-            }
-        }).run();
+//        Thread(Runnable {
+//            while (true){
+//                Thread.sleep(2000)
+//                val transactionReceipt = web3j?.ethGetTransactionReceipt(hash)?.sendAsync()?.get()?.transactionReceipt
+//                if (transactionReceipt!!.isPresent){
+//                    break
+//                }
+//            }
+//        }).run();
     }
 
     fun checkAuth(context: Context?, contractId: String, deviceId: String){
