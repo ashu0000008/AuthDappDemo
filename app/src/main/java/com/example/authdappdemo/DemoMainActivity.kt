@@ -28,6 +28,9 @@ class DemoMainActivity  : AppCompatActivity(){
         findViewById<Button>(R.id.btn_old_version).setOnClickListener {
             MainActivity.start(this)
         }
+        findViewById<Button>(R.id.btn_contract_transfer_token).setOnClickListener {
+            TestLockTokenActivity.start(this)
+        }
 
         findViewById<Button>(R.id.btn_auth_req).setOnClickListener {
             val contractId = etContractId.text.toString()

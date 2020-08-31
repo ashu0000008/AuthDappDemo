@@ -34,6 +34,13 @@
         android:layout_height="0dp"/>
 
     <Button
+        android:id="@+id/btn_contract_transfer_token"
+        android:text="合约token转移"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
         android:visibility="invisible"
         android:id="@+id/btn_old_version"
         android:text="老版demo"

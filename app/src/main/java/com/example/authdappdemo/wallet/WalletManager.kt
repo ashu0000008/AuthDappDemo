@@ -22,9 +22,9 @@ import java.math.BigInteger
 
 object WalletManager {
 
-    private var mWallet: Credentials? = null
-    private var web3j: Admin? = Admin.build(HttpService(WalletConfigure.mEthNode))
-    private val easyThread = EasyThread.Builder.createScheduled(5).build()
+    var mWallet: Credentials? = null
+    var web3j: Admin? = Admin.build(HttpService(WalletConfigure.mEthNode))
+    val easyThread = EasyThread.Builder.createScheduled(5).build()
 
     fun initWallet() {
         mWallet = Bip44WalletUtils.loadBip44Credentials("Test123", WalletConfigure.mMnemonic, true)

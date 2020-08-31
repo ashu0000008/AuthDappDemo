@@ -18,7 +18,7 @@ class WalletConfigure {
 
         //本机唯一标识，可以是钱包地址
         const val mDeviceId = 11111
-        const val mContractId = "contract_company_010"
+        const val mContractId = "contract_company_100"
         const val mContractIndex = 2
 
     }
