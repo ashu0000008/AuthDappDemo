@@ -5,10 +5,10 @@ import java.math.BigInteger
 class WalletConfigure {
     companion object{
         const val mMnemonic = "liar rescue hair method cradle pizza unusual whale twin cute into daring"
-        val mGasPrice = BigInteger("500000000000")
+        val mGasPrice = BigInteger("6000000000")
         val mGasLimit = BigInteger("3000000")
         const val mContractAddress = "0xfFD23A0e058F72932902AcE0d594Ddb4A393bc93"
-        const val mContractAddressNew = "0xb1C45477EB88b2C9E28D34234abC18F466188DD8"
+        const val mContractAddressNew = "0x62b0cC804c6f5fc742E6Fccb4BFCffE1651D1C40"
 
         const val mEthNode = "https://rinkeby.infura.io/v3/bebe1ba6263e44279370df5b205e8b9c"
         const val mEthNodePrivate = "http://119.45.254.226:8845"
