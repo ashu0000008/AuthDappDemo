@@ -41,7 +41,6 @@
         android:layout_height="wrap_content"/>
 
     <Button
-        android:visibility="invisible"
         android:id="@+id/btn_old_version"
         android:text="老版demo"
         android:layout_marginBottom="20dp"

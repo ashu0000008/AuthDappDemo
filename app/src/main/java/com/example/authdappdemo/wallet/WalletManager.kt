@@ -23,7 +23,7 @@ import java.math.BigInteger
 object WalletManager {
 
     var mWallet: Credentials? = null
-    var web3j: Admin? = Admin.build(HttpService(WalletConfigure.mEthNode))
+    var web3j: Admin? = Admin.build(HttpService(WalletConfigure.mEthNodePrivate))
     val easyThread = EasyThread.Builder.createScheduled(5).build()
 
     fun initWallet() {

@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.authdappdemo.wallet.WalletManager
+import com.example.authdappdemo.wallet.WalletManagerLockTokenExtension.depositERC20FromContract
+import com.example.authdappdemo.wallet.WalletManagerLockTokenExtension.withdrawERC20FromContract
 import com.example.authdappdemo.wallet.WalletManagerLockTokenExtension.withdrawFromContract
 
 class TestLockTokenActivity : AppCompatActivity() {
@@ -24,6 +26,17 @@ class TestLockTokenActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_withdraw).setOnClickListener {
             WalletManager.withdrawFromContract(this)
         }
+
+        findViewById<Button>(R.id.btn_deposit_erc20).setOnClickListener {
+            WalletManager.depositERC20FromContract(this)
+        }
+
+        findViewById<Button>(R.id.btn_withdraw_erc20).setOnClickListener {
+            WalletManager.withdrawERC20FromContract(this)
+        }
+
+
+
     }
 
 }
