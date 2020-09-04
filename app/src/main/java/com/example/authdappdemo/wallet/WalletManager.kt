@@ -144,7 +144,7 @@ object WalletManager {
             return
         }
 
-        val promptDialog =  PromptDialog(context)
+        val promptDialog = PromptDialog(context)
         promptDialog.showLoading("")
 
         easyThread.execute(Runnable {
@@ -190,7 +190,7 @@ object WalletManager {
 
     }
 
-    private fun canAuth(context: Activity?, contractId: String): Boolean {
+    fun canAuth(context: Activity?, contractId: String): Boolean {
         val function = FunctionEncoder.makeFunction(
             "canAuth", arrayListOf("string"),
             arrayListOf(contractId) as List<Any>?, arrayListOf("bool", "string")
@@ -218,7 +218,7 @@ object WalletManager {
 
     fun reqAuth(context: Activity?, contractId: String, deviceId: String) {
 
-        val promptDialog =  PromptDialog(context)
+        val promptDialog = PromptDialog(context)
         promptDialog.showLoading("")
 
         easyThread.execute(Runnable {
@@ -281,7 +281,7 @@ object WalletManager {
 
     fun checkAuth(context: Activity?, contractId: String, deviceId: String) {
 
-        val promptDialog =  PromptDialog(context)
+        val promptDialog = PromptDialog(context)
         promptDialog.showLoading("")
 
         easyThread.execute(Runnable {

@@ -1,5 +1,7 @@
 package com.example.authdappdemo
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
@@ -10,6 +12,14 @@ import com.example.authdappdemo.wallet.WalletManager
 import java.lang.Exception
 
 class DemoMainActivity  : AppCompatActivity(){
+
+    companion object{
+        fun start(context: Context){
+            val intent: Intent = Intent(context, DemoMainActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_demo)
