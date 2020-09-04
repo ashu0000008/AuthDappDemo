@@ -12,8 +12,10 @@ import org.web3j.abi.FunctionReturnDecoder
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.TransactionEncoder
+import org.web3j.protocol.admin.Admin
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.Transaction
+import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -23,14 +25,25 @@ object WalletManagerPrivateEthereumExtension {
     //私链钱包
     private var mWalletPrv: Credentials? = null
     var mContractId: String = "null"
+    var mExpireAt: Long = System.currentTimeMillis()
+    var mServiceUrl: String = "null"
+    var mContractAddress: String = "null"
+    var web3jPrv: Admin? = null
 
     fun importLicense(context: Context?, license: String) {
         //Todo 解析license格式，用私钥生成钱包，赋值合同Id
         val licenseSample = "{\"contractId\":\"product_customer_00\",\"prvKey\":\"b0ace7e3adcf4822436c860240b67880edc5e26ecec965fad7b8b73b126a158a\"}"
-        var licenseSimple = JsonTool.jsonToObject(licenseSample, LicenseSimple::class.java)
+        var licenseSimple = JsonTool.jsonToObject(license, LicenseSimple::class.java)
+        if (null == licenseSimple){
+            Toast.makeText(context, "license格式错误", Toast.LENGTH_LONG).show()
+            return
+        }
 
-        mWalletPrv = Credentials.create(licenseSimple?.prvKey)
-        mContractId = licenseSimple?.contractId.toString()
+        mWalletPrv = Credentials.create(licenseSimple?.privateKey)
+        mContractId = licenseSimple?.licenseId.toString()
+        mServiceUrl = licenseSimple?.serviceUrl.toString()
+        mContractAddress = licenseSimple?.contractAddress.toString()
+        web3jPrv = Admin.build(HttpService(mServiceUrl))
     }
 
     fun showBalancePrv(context: Context?) {
@@ -39,7 +52,7 @@ object WalletManagerPrivateEthereumExtension {
             return
         }
 
-        val balance = WalletManager.web3j?.ethGetBalance(
+        val balance = web3jPrv?.ethGetBalance(
             mWalletPrv?.address.toString(),
             DefaultBlockParameterName.LATEST
         )?.sendAsync()?.get()
@@ -62,7 +75,7 @@ object WalletManagerPrivateEthereumExtension {
                 return@Runnable
             }
 
-            val nonce = WalletManager.web3j?.ethGetTransactionCount(
+            val nonce = web3jPrv?.ethGetTransactionCount(
                 mWalletPrv?.address.toString(), DefaultBlockParameterName.LATEST
             )?.sendAsync()?.get()?.transactionCount
 
@@ -75,13 +88,13 @@ object WalletManagerPrivateEthereumExtension {
                 nonce,
                 WalletConfigure.mGasPrice,
                 WalletConfigure.mGasLimit,
-                WalletConfigure.mContractAddressNew,
+                mContractAddress,
                 BigInteger.ZERO,
                 encodedFunction
             )
             val signedString = TransactionEncoder.signMessage(rawTransaction, mWalletPrv)
             val transactionResponse =
-                WalletManager.web3j?.ethSendRawTransaction(Numeric.toHexString(signedString))
+                web3jPrv?.ethSendRawTransaction(Numeric.toHexString(signedString))
                     ?.sendAsync()?.get()
             val hash = transactionResponse?.transactionHash
 
@@ -114,10 +127,10 @@ object WalletManagerPrivateEthereumExtension {
             val encodedFunction = FunctionEncoder.encode(function)
 
             val transaction = Transaction.createEthCallTransaction(
-                mWalletPrv?.address.toString(), WalletConfigure.mContractAddressNew, encodedFunction
+                mWalletPrv?.address.toString(), mContractAddress, encodedFunction
             )
             val response =
-                WalletManager.web3j?.ethCall(transaction, DefaultBlockParameterName.LATEST)
+                web3jPrv?.ethCall(transaction, DefaultBlockParameterName.LATEST)
                     ?.sendAsync()?.get()
             val returnValue =
                 FunctionReturnDecoder.decode(response?.value, function.outputParameters)
