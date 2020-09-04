@@ -42,6 +42,9 @@ object WalletManagerPrivateEthereumExtension {
         mWalletPrv = Credentials.create(licenseSimple?.privateKey)
         mContractId = licenseSimple?.licenseId.toString()
         mServiceUrl = licenseSimple?.serviceUrl.toString()
+        if (mServiceUrl.startsWith("_")){
+            mServiceUrl = mServiceUrl.substring(1)
+        }
         mContractAddress = licenseSimple?.contractAddress.toString()
         web3jPrv = Admin.build(HttpService(mServiceUrl))
     }
