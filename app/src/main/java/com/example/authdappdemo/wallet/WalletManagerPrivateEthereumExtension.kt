@@ -1,24 +1,33 @@
 package com.example.authdappdemo.wallet
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import com.example.authdappdemo.model.LicenseSimple
 import com.example.authdappdemo.tools.JsonTool
+import com.example.authdappdemo.wallet.WalletManager.easyThread
 import me.leefeng.promptlibrary.PromptDialog
+import org.web3j.abi.EventEncoder
 import org.web3j.abi.FunctionEncoder
 import org.web3j.abi.FunctionReturnDecoder
+import org.web3j.abi.TypeReference
+import org.web3j.abi.datatypes.Event
+import org.web3j.abi.datatypes.Utf8String
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.TransactionEncoder
 import org.web3j.protocol.admin.Admin
 import org.web3j.protocol.core.DefaultBlockParameterName
+import org.web3j.protocol.core.methods.request.EthFilter
 import org.web3j.protocol.core.methods.request.Transaction
 import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import java.math.BigDecimal
 import java.math.BigInteger
+
 
 object WalletManagerPrivateEthereumExtension {
 
@@ -30,9 +39,8 @@ object WalletManagerPrivateEthereumExtension {
     var mContractAddress: String = "null"
     var web3jPrv: Admin? = null
 
-    fun importLicense(context: Context?, license: String) {
-        //Todo 解析license格式，用私钥生成钱包，赋值合同Id
-        val licenseSample = "{\"contractId\":\"product_customer_00\",\"prvKey\":\"b0ace7e3adcf4822436c860240b67880edc5e26ecec965fad7b8b73b126a158a\"}"
+    fun importLicense(context: Activity?, license: String) {
+//        val licenseSample = "{\"contractId\":\"product_customer_00\",\"prvKey\":\"b0ace7e3adcf4822436c860240b67880edc5e26ecec965fad7b8b73b126a158a\"}"
         var licenseSimple = JsonTool.jsonToObject(license, LicenseSimple::class.java)
         if (null == licenseSimple){
             Toast.makeText(context, "license格式错误", Toast.LENGTH_LONG).show()
@@ -47,6 +55,12 @@ object WalletManagerPrivateEthereumExtension {
         }
         mContractAddress = licenseSimple?.contractAddress.toString()
         web3jPrv = Admin.build(HttpService(mServiceUrl))
+
+        //just test
+        mContractAddress = WalletConfigure.mContractAddressNew
+        mContractId = WalletConfigure.mContractId
+
+        startListening(context)
     }
 
     fun showBalancePrv(context: Context?) {
@@ -150,6 +164,43 @@ object WalletManagerPrivateEthereumExtension {
             }
 
         })
+    }
+
+
+    @SuppressLint("CheckResult")
+    private fun startListening(context: Activity?){
+        val event = Event(
+            "authed",
+            arrayListOf(
+                object : TypeReference<Utf8String>(){},
+                object : TypeReference<Utf8String>(){}
+            ) as List<TypeReference<*>>?
+        )
+
+        val filter = EthFilter(
+            DefaultBlockParameterName.EARLIEST,
+            DefaultBlockParameterName.LATEST,
+            WalletConfigure.mContractAddressNew
+        )
+        filter.addSingleTopic(EventEncoder.encode(event))
+
+        easyThread.execute {
+            Runnable {
+                web3jPrv?.ethLogFlowable(filter)?.subscribe {
+
+                    val args = FunctionReturnDecoder.decode(
+                        it.data, event.parameters
+                    )
+
+                    context?.runOnUiThread {
+                        Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
+                    }
+
+                }.runCatching {
+                    Log.e("xx", "ooo")
+                }
+            }
+        }
 
     }
 }
