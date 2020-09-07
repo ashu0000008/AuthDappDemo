@@ -2,7 +2,6 @@ package com.example.authdappdemo.wallet;
 
 import android.app.Activity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.lzh.easythread.EasyThread;
 
@@ -44,19 +43,17 @@ public class ChainEventManager {
                 DefaultBlockParameterName.LATEST, contractAddress);
         filter.addSingleTopic(EventEncoder.encode(event));
 
-        easyThread.execute(()->{
+        easyThread.execute(() -> {
             mDisposable = web3jPrv.ethLogFlowable(filter).subscribe(log -> {
 
                 Log.e("event", log.toString());
 
                 List<Type> args = FunctionReturnDecoder.decode(log.getData(), event.getParameters());
-                String contractId = (String)args.get(0).getValue();
-                String deviceId = (String)args.get(1).getValue();
+                String contractId = (String) args.get(0).getValue();
+                String deviceId = (String) args.get(1).getValue();
 
                 if (null != activity) {
                     activity.runOnUiThread(() -> {
-//                        Toast.makeText(activity, log.toString(), Toast.LENGTH_LONG).show();
-//                        Toast.makeText(activity, arg1.toString()+":"+arg2.toString(), Toast.LENGTH_LONG).show();
                         WalletManagerPrivateEthereumExtension.INSTANCE.doEventResponse(activity, contractId, deviceId);
                     });
                 }

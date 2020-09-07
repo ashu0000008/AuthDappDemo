@@ -68,7 +68,7 @@ object WalletManagerPrivateEthereumExtension {
 //        mContractId = WalletConfigure.mContractId
 
 //        startListening(context)
-        ChainEventManager.getInstance().startListening(context, web3jPrv, mContractAddress);
+        ChainEventManager2.startListening(context, web3jPrv, mContractAddress);
     }
 
     fun showBalancePrv(context: Context?) {
