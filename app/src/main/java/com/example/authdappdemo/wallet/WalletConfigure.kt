@@ -8,7 +8,7 @@ class WalletConfigure {
         val mGasPrice = BigInteger("6000000000")
         val mGasLimit = BigInteger("3000000")
         const val mContractAddress = "0xfFD23A0e058F72932902AcE0d594Ddb4A393bc93"
-        const val mContractAddressNew = "0x69E849D5660bCd9674D59EA4f557E347a16C973c"
+        const val mContractAddressNew = "0x418a2ee7b627F7Fa3fAC7264a1A5FEA862Bf61bd"
 
         const val mEthNode = "https://rinkeby.infura.io/v3/bebe1ba6263e44279370df5b205e8b9c"
         const val mEthNodePrivate = "http://119.45.254.226:8845"
@@ -18,7 +18,8 @@ class WalletConfigure {
 
 
         //本机唯一标识，可以是钱包地址
-        const val mDeviceId = 11111
+        //const val mDeviceId = SystemProperties.get("pax.sys.appDebug")
+        const val mDeviceId = "111"
         const val mContractId = "product_customer_00"
         const val mContractIndex = 2
 

@@ -34,10 +34,10 @@ class DemoPrivateEtherActivity : AppCompatActivity() {
     private fun importLicense() {
         var etLicense = findViewById<EditText>(R.id.et_license)
         val license = etLicense.text.toString()
-        if (TextUtils.isEmpty(license)) {
-            Toast.makeText(this, "license is null", Toast.LENGTH_LONG).show()
-            return
-        }
+//        if (TextUtils.isEmpty(license)) {
+//            Toast.makeText(this, "license is null", Toast.LENGTH_LONG).show()
+//            return
+//        }
 
         WalletManagerPrivateEthereumExtension.importLicense(this, license)
 

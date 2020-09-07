@@ -35,32 +35,40 @@ object WalletManagerPrivateEthereumExtension {
     private var mWalletPrv: Credentials? = null
     var mContractId: String = "null"
     var mExpireAt: Long = System.currentTimeMillis()
-    var mServiceUrl: String = "null"
-    var mContractAddress: String = "null"
+    var mServiceUrl: String = WalletConfigure.mEthNodePrivate
+    var mContractAddress: String = WalletConfigure.mContractAddressNew
     var web3jPrv: Admin? = null
 
     fun importLicense(context: Activity?, license: String) {
-//        val licenseSample = "{\"contractId\":\"product_customer_00\",\"prvKey\":\"b0ace7e3adcf4822436c860240b67880edc5e26ecec965fad7b8b73b126a158a\"}"
-        var licenseSimple = JsonTool.jsonToObject(license, LicenseSimple::class.java)
+        val licenseSample = "{\"licenseId\":\"product_customer_00\",\"privateKey\":\"b0ace7e3adcf4822436c860240b67880edc5e26ecec965fad7b8b73b126a158a\"}"
+        var licenseSimple = JsonTool.jsonToObject(licenseSample, LicenseSimple::class.java)
         if (null == licenseSimple){
             Toast.makeText(context, "license格式错误", Toast.LENGTH_LONG).show()
             return
         }
 
         mWalletPrv = Credentials.create(licenseSimple?.privateKey)
-        mContractId = licenseSimple?.licenseId.toString()
-        mServiceUrl = licenseSimple?.serviceUrl.toString()
-        if (mServiceUrl.startsWith("_")){
-            mServiceUrl = mServiceUrl.substring(1)
+        if (!TextUtils.isEmpty(licenseSimple?.licenseId)){
+            mContractId = licenseSimple?.licenseId.toString()
         }
-        mContractAddress = licenseSimple?.contractAddress.toString()
+        if (!TextUtils.isEmpty(licenseSimple?.serviceUrl)){
+            mServiceUrl = licenseSimple?.serviceUrl.toString()
+            if (mServiceUrl.startsWith("_")){
+                mServiceUrl = mServiceUrl.substring(1)
+            }
+        }
+        if (!TextUtils.isEmpty(licenseSimple?.contractAddress)){
+            mContractAddress = licenseSimple?.contractAddress.toString()
+        }
+
         web3jPrv = Admin.build(HttpService(mServiceUrl))
 
         //just test
         mContractAddress = WalletConfigure.mContractAddressNew
         mContractId = WalletConfigure.mContractId
 
-        startListening(context)
+//        startListening(context)
+        ChainEventManager.getInstance().startListening(context, web3jPrv, mContractAddress);
     }
 
     fun showBalancePrv(context: Context?) {
@@ -170,10 +178,10 @@ object WalletManagerPrivateEthereumExtension {
     @SuppressLint("CheckResult")
     private fun startListening(context: Activity?){
         val event = Event(
-            "authed",
+            "authedEventFinal",
             arrayListOf(
-                object : TypeReference<Utf8String>(){},
-                object : TypeReference<Utf8String>(){}
+                object : TypeReference<Utf8String>() {},
+                object : TypeReference<Utf8String>() {}
             ) as List<TypeReference<*>>?
         )
 
@@ -202,5 +210,11 @@ object WalletManagerPrivateEthereumExtension {
             }
         }
 
+    }
+
+    fun doEventResponse(context: Activity?, contractId: String, deviceId: String) {
+        if (contractId == mContractId && deviceId == WalletConfigure.mDeviceId) {
+            Toast.makeText(context, "申请授权成功", Toast.LENGTH_LONG).show()
+        }
     }
 }
