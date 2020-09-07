@@ -92,7 +92,7 @@ object WalletManagerPrivateEthereumExtension {
         promptDialog.showLoading("")
 
         WalletManager.easyThread.execute(Runnable {
-            val canAuth = WalletManager.canAuth(context, mContractId)
+            val canAuth = WalletManager.canAuth(context, mContractId, deviceId)
             if (!canAuth) {
                 context?.runOnUiThread {
                     promptDialog.showSuccess("")

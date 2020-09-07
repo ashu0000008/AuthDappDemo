@@ -190,10 +190,10 @@ object WalletManager {
 
     }
 
-    fun canAuth(context: Activity?, contractId: String): Boolean {
+    fun canAuth(context: Activity?, contractId: String, deviceId: String): Boolean {
         val function = FunctionEncoder.makeFunction(
-            "canAuth", arrayListOf("string"),
-            arrayListOf(contractId) as List<Any>?, arrayListOf("bool", "string")
+            "canAuth", arrayListOf("string", "string"),
+            arrayListOf(contractId, deviceId) as List<Any>?, arrayListOf("bool", "string")
         )
         val encodedFunction = FunctionEncoder.encode(function)
 
@@ -222,7 +222,7 @@ object WalletManager {
         promptDialog.showLoading("")
 
         easyThread.execute(Runnable {
-            val canAuth = canAuth(context, contractId)
+            val canAuth = canAuth(context, contractId, deviceId)
             if (!canAuth) {
                 context?.runOnUiThread {
                     promptDialog.showSuccess("")

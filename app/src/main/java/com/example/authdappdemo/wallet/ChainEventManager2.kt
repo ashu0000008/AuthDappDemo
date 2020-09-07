@@ -13,7 +13,6 @@ import org.web3j.protocol.admin.Admin
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.EthFilter
 import org.web3j.protocol.core.methods.response.Log
-import java.util.*
 
 object ChainEventManager2 {
 

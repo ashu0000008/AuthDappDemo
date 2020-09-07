@@ -10,7 +10,7 @@ class WalletConfigure {
         val mGasPrice = BigInteger("6000000000")
         val mGasLimit = BigInteger("3000000")
         const val mContractAddress = "0xfFD23A0e058F72932902AcE0d594Ddb4A393bc93"
-        const val mContractAddressNew = "0x418a2ee7b627F7Fa3fAC7264a1A5FEA862Bf61bd"
+        const val mContractAddressNew = "0xdC076028d6aE87722ABD4248b0B82A402bc2593E"
 
         const val mEthNode = "https://rinkeby.infura.io/v3/bebe1ba6263e44279370df5b205e8b9c"
         const val mEthNodePrivate = "http://119.45.254.226:8845"
