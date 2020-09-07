@@ -64,8 +64,8 @@ object WalletManagerPrivateEthereumExtension {
         web3jPrv = Admin.build(HttpService(mServiceUrl))
 
         //just test
-        mContractAddress = WalletConfigure.mContractAddressNew
-        mContractId = WalletConfigure.mContractId
+//        mContractAddress = WalletConfigure.mContractAddressNew
+//        mContractId = WalletConfigure.mContractId
 
 //        startListening(context)
         ChainEventManager.getInstance().startListening(context, web3jPrv, mContractAddress);
