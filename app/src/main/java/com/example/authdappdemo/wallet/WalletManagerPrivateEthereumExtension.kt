@@ -40,8 +40,8 @@ object WalletManagerPrivateEthereumExtension {
     var web3jPrv: Admin? = null
 
     fun importLicense(context: Activity?, license: String) {
-        val licenseSample = "{\"licenseId\":\"product_customer_00\",\"privateKey\":\"b0ace7e3adcf4822436c860240b67880edc5e26ecec965fad7b8b73b126a158a\"}"
-        var licenseSimple = JsonTool.jsonToObject(licenseSample, LicenseSimple::class.java)
+//        val licenseSample = "{\"licenseId\":\"product_customer_00\",\"privateKey\":\"b0ace7e3adcf4822436c860240b67880edc5e26ecec965fad7b8b73b126a158a\"}"
+        var licenseSimple = JsonTool.jsonToObject(license, LicenseSimple::class.java)
         if (null == licenseSimple){
             Toast.makeText(context, "license格式错误", Toast.LENGTH_LONG).show()
             return
@@ -165,9 +165,9 @@ object WalletManagerPrivateEthereumExtension {
             context?.runOnUiThread {
                 promptDialog.showSuccess("")
                 if (result) {
-                    Toast.makeText(context, "已经得到授权", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "有权限", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(context, "未授权:${reason}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "无权限:${reason}", Toast.LENGTH_LONG).show()
                 }
             }
 

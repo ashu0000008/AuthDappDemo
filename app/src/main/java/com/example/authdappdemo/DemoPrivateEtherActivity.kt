@@ -2,10 +2,9 @@ package com.example.authdappdemo
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.authdappdemo.wallet.WalletConfigure
 import com.example.authdappdemo.wallet.WalletManagerPrivateEthereumExtension
@@ -41,16 +40,14 @@ class DemoPrivateEtherActivity : AppCompatActivity() {
 
         WalletManagerPrivateEthereumExtension.importLicense(this, license)
 
-        val etContractId = findViewById<EditText>(R.id.et_contract_id)
-        etContractId.setText(WalletManagerPrivateEthereumExtension.mContractId)
+        val etContractId = findViewById<TextView>(R.id.et_contract_id)
+        etContractId.text = WalletManagerPrivateEthereumExtension.mContractId
     }
 
     private fun initCheckAuth() {
-        val etContractId = findViewById<EditText>(R.id.et_contract_id)
-        etContractId.focusable = View.NOT_FOCUSABLE
-        etContractId.isFocusableInTouchMode = false
-        val etDeviceId = findViewById<EditText>(R.id.et_device_id)
-        etDeviceId.setText(WalletConfigure.mDeviceId.toString())
+        val etContractId = findViewById<TextView>(R.id.et_contract_id)
+        val etDeviceId = findViewById<TextView>(R.id.et_device_id)
+        etDeviceId.text = WalletConfigure.mDeviceId
 
         findViewById<Button>(R.id.btn_auth_req).setOnClickListener {
             val contractId = etContractId.text.toString()
