@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AuthDappDemo</string>
+    <string name="app_name">授权Demo</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

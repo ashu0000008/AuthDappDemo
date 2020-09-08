@@ -3,20 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+<!--    <Button-->
+<!--        android:id="@+id/btn_select_license"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="选择license文件" />-->
+
     <TextView
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="60dp"
         android:id="@+id/tv_license_tip"
-        android:text="license"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="140dp"
+        android:text="license" />
 
     <EditText
-        android:layout_alignBottom="@id/tv_license_tip"
-        android:layout_toEndOf="@id/tv_license_tip"
-        android:layout_marginStart="70dp"
         android:id="@+id/et_license"
         android:layout_width="220dp"
-        android:layout_height="wrap_content"/>
+        android:textSize="10dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_license_tip"
+        android:layout_marginStart="70dp"
+        android:layout_toEndOf="@id/tv_license_tip" />
 
 </RelativeLayout>

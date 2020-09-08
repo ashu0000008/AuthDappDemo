@@ -1,53 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:gravity="center_horizontal"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/view_license_param"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btn_import_license"
-        android:text="激活License"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/btn_check_balance"
-        android:text="查询余额"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <include layout="@layout/view_contract_param2"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        />
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_auth_check"
-        android:text="查询是否有权限"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <include
+            layout="@layout/view_license_param"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/btn_auth_req"
-        android:text="申请权限"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btn_import_license"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="激活License" />
 
-    <View
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"/>
+        <Button
+            android:id="@+id/btn_check_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查询余额" />
 
-    <Button
-        android:id="@+id/btn_old_version"
-        android:text="老版demo"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <include
+            layout="@layout/view_contract_param2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_auth_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查询是否有权限" />
+
+        <Button
+            android:id="@+id/btn_auth_req"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="申请权限" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btn_old_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="老版demo" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+    </LinearLayout>
+</ScrollView>
