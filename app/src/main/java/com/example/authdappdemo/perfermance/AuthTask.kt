@@ -4,7 +4,9 @@ import android.app.Activity
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import com.example.authdappdemo.model.AuthSuccessEvent
 import com.example.authdappdemo.wallet.WalletConfigure
+import org.greenrobot.eventbus.EventBus
 import org.web3j.abi.FunctionEncoder
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
@@ -76,6 +78,7 @@ class AuthTask(private val context: Activity?, private val mDeviceId: String) {
             }
 
             Log.e("AuthTask", "完成认证数量：$mCounter")
+//            EventBus.getDefault().post(AuthSuccessEvent(countNow, mDeviceId))
 //            context?.runOnUiThread {
 //                Toast.makeText(context, "完成认证数量：$mCounter", Toast.LENGTH_SHORT).show()
 //            }
