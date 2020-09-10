@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.authdappdemo.model.AuthSuccessEvent
 import com.example.authdappdemo.perfermance.TestEtherTrans
+import com.example.authdappdemo.perfermance.TestEtherTrans2
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -21,7 +22,7 @@ class PerformanceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_performance)
 
         findViewById<Button>(R.id.btn_start).setOnClickListener {
-            TestEtherTrans.startTest(this)
+            TestEtherTrans2.startTest(this)
         }
         mTvStatus = findViewById<TextView>(R.id.tv_status)
     }

@@ -4,9 +4,7 @@ import android.app.Activity
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
-import com.example.authdappdemo.model.AuthSuccessEvent
 import com.example.authdappdemo.wallet.WalletConfigure
-import org.greenrobot.eventbus.EventBus
 import org.web3j.abi.FunctionEncoder
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
@@ -17,7 +15,7 @@ import org.web3j.utils.Numeric
 import java.math.BigInteger
 import java.util.concurrent.atomic.AtomicLong
 
-class AuthTask(private val context: Activity?, private val mDeviceId: String) {
+class AuthTask(private val context: Activity?, val mDeviceId: String, private val web3jPrv: Admin?) {
 
     companion object {
         var mCounter = AtomicLong(0)
@@ -25,16 +23,9 @@ class AuthTask(private val context: Activity?, private val mDeviceId: String) {
     }
 
     private var mWalletPrv: Credentials? = null
-    var web3jPrv: Admin? = null
 
     fun initIndeed() {
-        mTimeStart = System.currentTimeMillis()
         mWalletPrv = Credentials.create(Configure2.mPrvKey)
-        web3jPrv = Admin.build(
-            HttpService(
-                Configure2.mEthNodePrivate
-            )
-        )
     }
 
 
@@ -77,7 +68,8 @@ class AuthTask(private val context: Activity?, private val mDeviceId: String) {
                 countNow = mCounter.addAndGet(1)
             }
 
-            Log.e("AuthTask", "完成认证数量：$mCounter")
+//            var timeSpend = (System.currentTimeMillis() - mTimeStart)/1000
+//            Log.e("AuthTask", "完成认证数量：$mCounter------------------spend $timeSpend s")
 //            EventBus.getDefault().post(AuthSuccessEvent(countNow, mDeviceId))
 //            context?.runOnUiThread {
 //                Toast.makeText(context, "完成认证数量：$mCounter", Toast.LENGTH_SHORT).show()
