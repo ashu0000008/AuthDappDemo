@@ -19,8 +19,7 @@ object TestEtherTrans2 {
         val workQueue: BlockingQueue<Runnable> = ArrayBlockingQueue(10000, true)
         mThreadPoolExecutor = ThreadPoolExecutor(
             100, 400, 1000,
-            TimeUnit.SECONDS, workQueue
-        )
+            TimeUnit.SECONDS, workQueue)
     }
 
     fun startTest(context: Activity?) {
@@ -39,7 +38,7 @@ object TestEtherTrans2 {
                     Thread.sleep(5000)
                 }
 
-                val deviceId = "100000$i"
+                val deviceId = "${Configure2.mDeviceIdPrefix}$i"
                 val task = AuthTask(context, deviceId, web3jPrv)
                 mThreadPoolExecutor.submit(MyRunnable(task))
             }

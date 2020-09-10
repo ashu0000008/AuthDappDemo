@@ -10,7 +10,6 @@ import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.TransactionEncoder
 import org.web3j.protocol.admin.Admin
-import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import java.math.BigInteger
 import java.util.concurrent.atomic.AtomicLong
@@ -25,7 +24,8 @@ class AuthTask(private val context: Activity?, val mDeviceId: String, private va
     private var mWalletPrv: Credentials? = null
 
     fun initIndeed() {
-        mWalletPrv = Credentials.create(Configure2.mPrvKey)
+//        mWalletPrv = Credentials.create(Configure2.mPrvKey)
+        mWalletPrv = AccountManager.getWallet()
     }
 
 
@@ -39,7 +39,7 @@ class AuthTask(private val context: Activity?, val mDeviceId: String, private va
         val encodedFunction = FunctionEncoder.encode(function)
         val rawTransaction = RawTransaction.createTransaction(
             nonce,
-            WalletConfigure.mGasPrice,
+            Configure2.mGasPrice,
             WalletConfigure.mGasLimit,
             Configure2.mContractAddress,
             BigInteger.ZERO,
