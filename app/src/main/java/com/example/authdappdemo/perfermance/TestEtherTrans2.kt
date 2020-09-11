@@ -13,12 +13,12 @@ import java.util.concurrent.TimeUnit
 //使用原生线程池
 object TestEtherTrans2 {
     private var mThreadPoolExecutor: ThreadPoolExecutor
-    private var web3jPrv: Admin? = Admin.build(HttpService(Configure2.mEthNodePrivate))
+    private var web3jPrv: Admin? = Admin.build(HttpService(Configure2.mEthNodePrivate2))
 
     init {
         val workQueue: BlockingQueue<Runnable> = ArrayBlockingQueue(10000, true)
         mThreadPoolExecutor = ThreadPoolExecutor(
-            100, 400, 1000,
+            200, 400, 1000,
             TimeUnit.SECONDS, workQueue)
     }
 
@@ -34,9 +34,9 @@ object TestEtherTrans2 {
             for (i in 1..Configure2.mAuthAmount) {
 
                 //任务投递休息
-                if (i%100 == 0L){
-                    Thread.sleep(5000)
-                }
+//                if (i%100 == 0L){
+//                    Thread.sleep(5000)
+//                }
 
                 val deviceId = "${Configure2.mDeviceIdPrefix}$i"
                 val task = AuthTask(context, deviceId, web3jPrv)

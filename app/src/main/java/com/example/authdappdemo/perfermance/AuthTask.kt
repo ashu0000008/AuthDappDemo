@@ -9,10 +9,14 @@ import org.web3j.abi.FunctionEncoder
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.TransactionEncoder
+import org.web3j.protocol.Web3j
 import org.web3j.protocol.admin.Admin
+import org.web3j.protocol.core.methods.request.Transaction
 import org.web3j.utils.Numeric
+import java.io.IOException
 import java.math.BigInteger
 import java.util.concurrent.atomic.AtomicLong
+
 
 class AuthTask(private val context: Activity?, val mDeviceId: String, private val web3jPrv: Admin?) {
 
@@ -24,8 +28,8 @@ class AuthTask(private val context: Activity?, val mDeviceId: String, private va
     private var mWalletPrv: Credentials? = null
 
     fun initIndeed() {
-//        mWalletPrv = Credentials.create(Configure2.mPrvKey)
-        mWalletPrv = AccountManager.getWallet()
+        mWalletPrv = Credentials.create(Configure2.mPrvKey)
+//        mWalletPrv = AccountManager.getWallet()
     }
 
 
@@ -37,11 +41,14 @@ class AuthTask(private val context: Activity?, val mDeviceId: String, private va
             arrayListOf(Configure2.mContractId, mDeviceId) as List<Any>?, arrayListOf("string")
         )
         val encodedFunction = FunctionEncoder.encode(function)
+
+//        val gasLimit = getTransactionGasLimit(web3jPrv, )
+
         val rawTransaction = RawTransaction.createTransaction(
             nonce,
             Configure2.mGasPrice,
-            WalletConfigure.mGasLimit,
-            Configure2.mContractAddress,
+            Configure2.mGasLimit,
+            Configure2.mContractAddress2,
             BigInteger.ZERO,
             encodedFunction
         )
@@ -85,6 +92,22 @@ class AuthTask(private val context: Activity?, val mDeviceId: String, private va
             }
 
             return true
+        }
+    }
+
+
+    private fun getTransactionGasLimit(
+        web3j: Web3j,
+        transaction: Transaction?
+    ): BigInteger? {
+        return try {
+            val ethEstimateGas = web3j.ethEstimateGas(transaction).send()
+            if (ethEstimateGas.hasError()) {
+                throw RuntimeException(ethEstimateGas.error.message)
+            }
+            ethEstimateGas.amountUsed
+        } catch (e: IOException) {
+            throw RuntimeException("net error")
         }
     }
 }

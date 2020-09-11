@@ -28,7 +28,7 @@ object AuthEventManager {
         )
         val filter = EthFilter(
             DefaultBlockParameterName.LATEST,
-            DefaultBlockParameterName.LATEST, Configure2.mContractAddress
+            DefaultBlockParameterName.LATEST, Configure2.mContractAddress2
         )
         filter.addSingleTopic(EventEncoder.encode(event))
 
