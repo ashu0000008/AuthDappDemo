@@ -9,7 +9,7 @@ import com.example.authdappdemo.model.LicenseSimple
 import com.example.authdappdemo.model.ProductInfo
 
 
-object Test {
+object TestJson {
 
 //    fun doTest(){
 //        val license = LicenseSimple("b0ace7e3adcf4822436c860240b67880edc5e26ecec965fad7b8b73b126a158a",

@@ -1,12 +1,13 @@
 package com.example.authdappdemo
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.authdappdemo.model.AuthSuccessEvent
-import com.example.authdappdemo.perfermance.TestEtherTrans
 import com.example.authdappdemo.perfermance.TestEtherTrans2
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -16,6 +17,13 @@ import org.greenrobot.eventbus.ThreadMode
 class PerformanceActivity : AppCompatActivity() {
 
     private var mTvStatus :TextView? = null
+
+    companion object{
+        fun start(context: Context){
+            val intent: Intent = Intent(context, PerformanceActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

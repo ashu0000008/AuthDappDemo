@@ -24,6 +24,9 @@ class DemoPrivateEtherActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_old_version).setOnClickListener {
             DemoMainActivity.start(this)
         }
+        findViewById<Button>(R.id.btn_performance).setOnClickListener {
+            PerformanceActivity.start(this)
+        }
         findViewById<Button>(R.id.btn_import_license).setOnClickListener {
             importLicense()
         }

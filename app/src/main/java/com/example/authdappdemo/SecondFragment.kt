@@ -29,7 +29,10 @@ class SecondFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.button_test).setOnClickListener {
-            Test.doTest()
+            TestJson.doTest()
+        }
+        view.findViewById<Button>(R.id.button_test_aes).setOnClickListener {
+            TestAES.doTest()
         }
 
 

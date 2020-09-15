@@ -34,16 +34,16 @@
             android:screenOrientation="portrait" />
 
         <activity android:name=".DemoPrivateEtherActivity">
-
-        </activity>
-
-
-        <activity android:name=".PerformanceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+
+        <activity android:name=".PerformanceActivity">
+
         </activity>
 
     </application>

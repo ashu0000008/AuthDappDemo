@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.2.37'
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.4.0'
     implementation 'org.greenrobot:eventbus:3.2.0'
+    implementation 'com.scottyab:aescrypt:0.0.1'
 }
 
 kotlin {
