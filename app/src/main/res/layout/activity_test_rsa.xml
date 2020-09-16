@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <EditText
+        android:id="@+id/ed_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="输入将要加密信息"
+        />
+
+
+    <Button
+        android:id="@+id/base64_btn_jiami"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="1.Base64加密"
+        />
+    <TextView
+        android:id="@+id/tv_text_base64_jiami"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Base64加密后："/>
+    <Button
+        android:id="@+id/base64_btn_jiemi"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="2.Base64解密"
+        />
+    <TextView
+        android:id="@+id/tv_text_base64_jiemi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Base64解密后："/>
+
+
+
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/rsa_btn_jiami"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="3.RSA加密"
+        />
+    <TextView
+        android:id="@+id/tv_text_ras_jiami"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RSA加密后："/>
+    <Button
+        android:id="@+id/rsa_btn_jiemi"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="4.RSA解密"
+        />
+    <TextView
+        android:id="@+id/tv_text_ras_jiemi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RSA解密后："/>
+
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/rsa_sign_btn_jiami"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="5.RSA签名"
+        />
+    <TextView
+        android:id="@+id/tv_text_ras_sign_jiami"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RSA签名后："/>
+    <Button
+        android:id="@+id/rsa_sign_btn_jiemi"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="6.RSA验证"
+        />
+    <TextView
+        android:id="@+id/tv_text_ras_sign_jiemi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RSA验证后："/>
+
+
+    <Button
+        android:id="@+id/btn_custom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="自定义"
+        />
+</LinearLayout>
+</ScrollView>

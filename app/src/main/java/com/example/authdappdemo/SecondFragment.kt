@@ -1,5 +1,6 @@
 package com.example.authdappdemo
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,7 +35,10 @@ class SecondFragment : Fragment() {
         view.findViewById<Button>(R.id.button_test_aes).setOnClickListener {
             TestAES.doTest()
         }
-
+        view.findViewById<Button>(R.id.button_test_rsa).setOnClickListener {
+            val intent = Intent(context, TestRSActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }

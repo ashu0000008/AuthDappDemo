@@ -43,8 +43,8 @@
 
 
         <activity android:name=".PerformanceActivity">
-
         </activity>
+        <activity android:name=".TestRSActivity"/>
 
     </application>
 
