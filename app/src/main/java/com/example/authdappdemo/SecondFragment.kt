@@ -39,6 +39,9 @@ class SecondFragment : Fragment() {
             val intent = Intent(context, TestRSActivity::class.java)
             startActivity(intent)
         }
+        view.findViewById<Button>(R.id.button_test_sec_sp).setOnClickListener {
+            context?.let { it1 -> TestSecSPActivity.start(it1) }
+        }
 
     }
 }
