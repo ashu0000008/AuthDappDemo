@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.authdappdemo.tools.rsa.Base64Utils;
 import com.example.authdappdemo.tools.rsa.RSA;
+import com.example.authdappdemo.tools.rsa.RSATest;
+import com.example.authdappdemo.tools.rsa.RSATest2;
 import com.example.authdappdemo.tools.rsa.RSAUtils;
 
 import butterknife.Bind;
@@ -119,6 +121,15 @@ public class TestRSActivity extends AppCompatActivity {
             }catch (Exception e){
                 e.printStackTrace();
             }
+        });
+        findViewById(R.id.btn_custom1).setOnClickListener(v->{
+            RSATest.Companion.test1();
+        });
+        findViewById(R.id.btn_custom2).setOnClickListener(v->{
+            RSATest.Companion.test2();
+        });
+        findViewById(R.id.btn_custom3).setOnClickListener(v->{
+            RSATest2.Companion.test();
         });
     }
 

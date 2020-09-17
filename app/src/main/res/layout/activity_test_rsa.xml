@@ -102,5 +102,26 @@
         android:layout_height="50dp"
         android:text="自定义"
         />
+
+    <Button
+        android:id="@+id/btn_custom1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="公钥加密，私钥解密"
+        />
+
+    <Button
+        android:id="@+id/btn_custom2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="私钥加密，公钥解密"
+        />
+
+    <Button
+        android:id="@+id/btn_custom3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="私钥签名，公钥验证"
+        />
 </LinearLayout>
 </ScrollView>
