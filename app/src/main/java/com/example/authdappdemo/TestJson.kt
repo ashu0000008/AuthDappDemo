@@ -5,9 +5,7 @@ import android.util.Log
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.JSONException
 import com.example.authdappdemo.model.License
-import com.example.authdappdemo.model.LicenseSimple
 import com.example.authdappdemo.model.ProductInfo
-
 
 object TestJson {
 

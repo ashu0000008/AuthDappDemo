@@ -1,5 +1,6 @@
 package com.example.authdappdemo.wallet
 
+import com.example.authdappdemo.MyApplication
 import com.example.authdappdemo.tools.DeviceIdTool
 import java.math.BigInteger
 
@@ -21,7 +22,7 @@ class WalletConfigure {
 
         //本机唯一标识，可以是钱包地址
 //        const val mDeviceId = SystemProperties.get("pax.sys.appDebug")
-        val mDeviceId = DeviceIdTool.getUniqueId()
+        val mDeviceId = MyApplication.mContext?.let { DeviceIdTool.getUniqueId(it) }
         const val mContractId = "product_customer_00"
         const val mContractIndex = 2
 
