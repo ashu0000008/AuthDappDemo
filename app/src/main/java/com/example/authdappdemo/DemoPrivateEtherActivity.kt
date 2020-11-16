@@ -1,5 +1,7 @@
 package com.example.authdappdemo
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
@@ -12,6 +14,13 @@ import com.example.authdappdemo.wallet.WalletManagerPrivateEthereumExtension
 
 
 class DemoPrivateEtherActivity : AppCompatActivity() {
+
+    companion object {
+        fun start(context: Context) {
+            val intent: Intent = Intent(context, DemoPrivateEtherActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

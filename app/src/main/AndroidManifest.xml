@@ -35,20 +35,22 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".DemoPrivateEtherActivity">
+        <activity android:name=".DemoPrivateEtherActivity"></activity>
+
+
+        <activity android:name=".PerformanceActivity"></activity>
+        <activity android:name=".TestRSActivity" />
+        <activity android:name=".TestSecSPActivity" />
+
+        <activity android:name=".EntranceActivity">
+
+        </activity>
+        <activity android:name=".TestAndroidIdActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".PerformanceActivity">
-        </activity>
-        <activity android:name=".TestRSActivity"/>
-        <activity android:name=".TestSecSPActivity"/>
-
     </application>
 
 </manifest>

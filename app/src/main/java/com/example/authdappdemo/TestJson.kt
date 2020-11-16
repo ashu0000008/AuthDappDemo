@@ -16,7 +16,7 @@ object TestJson {
 //        Log.e("license", jsonString.toString())
 //    }
 
-    fun doTest(){
+    fun doTest() {
         val license = License("xxxx", "ooooo", ProductInfo("pp", "oo"))
         val jsonString = objectToJson(license)
 
@@ -24,7 +24,7 @@ object TestJson {
         Log.e("xxx", licenseResult.toString())
     }
 
-    private fun <T> jsonToObject(jsonData: String?, clazz: Class<T>?): T? {
+    fun <T> jsonToObject(jsonData: String?, clazz: Class<T>?): T? {
         var t: T? = null
         if (TextUtils.isEmpty(jsonData)) {
             return null
@@ -37,7 +37,7 @@ object TestJson {
         return t
     }
 
-    private fun objectToJson(`object`: Any?): String? {
+    fun objectToJson(`object`: Any?): String? {
         if (`object` == null) {
             return ""
         }
