@@ -8,6 +8,7 @@ import android.provider.Settings
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.authdappdemo.model.DeviceInfo
+import com.example.authdappdemo.tools.ReportDeviceInfoManager
 
 class TestAndroidIdActivity : AppCompatActivity() {
     companion object {
@@ -25,12 +26,17 @@ class TestAndroidIdActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_android_id).text = androidId
 
         val deviceInfo = getDeviceInfo()
+        ReportDeviceInfoManager.report(deviceInfo)
         findViewById<TextView>(R.id.tv_device_info).text = deviceInfo
 
         findViewById<TextView>(R.id.tv_device_info).setOnClickListener {
             if (it is TextView) {
                 it.text = getDeviceInfo()
             }
+        }
+        findViewById<TextView>(R.id.tv_report).setOnClickListener {
+            val info = getDeviceInfo()
+            ReportDeviceInfoManager.report(info)
         }
     }
 
